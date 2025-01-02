@@ -6,7 +6,7 @@ import missingno as msno
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score, davies_bouldin_score
 import time
-st.set_page_config(page_title='The Machine Learning App',
+st.set_page_config(page_title='Agriculture Clustering App',
     layout='wide')
 st.write("## Clustering Web Applications")
 
