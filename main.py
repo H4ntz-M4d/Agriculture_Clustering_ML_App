@@ -22,9 +22,9 @@ tab1, tab2, tab3, tab4 = st.tabs(["Home", "Processing", "Evaluate", "Output"])
 
 with tab1:
     st.write("""
-    This web application aims to cluster the dataset on pesticide use in agriculture in the format below.
+    Aplikasi web ini bertujuan untuk mengelompokkan kumpulan data tentang penggunaan pestisida di bidang pertanian dalam format di bawah ini.
 
-    Please upload the file using the format below
+    Harap unggah berkas menggunakan format di bawah ini.
     """)
     uploaded_file = st.sidebar.file_uploader("Upload your input CSV file", type=["csv"])
 
@@ -33,7 +33,7 @@ with tab1:
         st.markdown('**Dataset Pesticide Use in Agriculture**')
         st.write(df)
     else:
-        st.info('Awaiting for CSV file to be uploaded.')
+        st.info('Menunggu file CSV untuk di upload.')
         st.table(data_format)
         st.session_state.clear()
 
@@ -169,7 +169,7 @@ with tab2:
 
 
     else:
-        st.warning("Please upload a CSV file to proceed.")
+        st.warning("Tolong upload file CSV untuk di proses.")
 
 with tab3:
     st.write("## Modeling Clustering")
