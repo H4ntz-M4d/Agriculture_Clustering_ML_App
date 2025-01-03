@@ -29,7 +29,7 @@ with tab1:
     """)
     uploaded_file = st.sidebar.file_uploader("Upload your input CSV or XLSX file", type=["csv","xlsx"])
 
-    file_path = "/workspaces/Agriculture_Clustering_ML_App/merged_output.csv"
+    file_path = "dataset_agriculture.xlsx"
 
     st.sidebar.markdown("##### Unduh Contoh Format CSV di bawah ini!")
     
@@ -37,8 +37,8 @@ with tab1:
         st.sidebar.download_button(
             label="Download Format File",
             data=file,
-            file_name='format_pestisida.csv',
-            mime='text/csv'
+            file_name='format_pestisida.xlsx',
+            mime='text/xlsx'
         )
 
     if uploaded_file is not None:
@@ -60,6 +60,7 @@ with tab1:
 
         except Exception as e:
             st.error(f"Gagal membaca file: {e}")
+            
     else:
         st.info('Menunggu file CSV untuk di upload.')
         st.table(data_format)
