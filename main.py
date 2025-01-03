@@ -6,6 +6,7 @@ import missingno as msno
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score, davies_bouldin_score
 import time
+
 st.set_page_config(page_title='Agriculture Clustering App',
     layout='wide')
 st.write("## Clustering Web Applications")
@@ -22,16 +23,43 @@ tab1, tab2, tab3, tab4 = st.tabs(["Home", "Processing", "Evaluate", "Output"])
 
 with tab1:
     st.write("""
-    Aplikasi web ini bertujuan untuk mengelompokkan kumpulan data tentang penggunaan pestisida di bidang pertanian dalam format di bawah ini.
+    Aplikasi web ini bertujuan untuk mengelompokkan kumpulan data tentang penggunaan pestisida di bidang pertanian dengan format di bawah ini.
 
     Harap unggah berkas menggunakan format di bawah ini.
     """)
-    uploaded_file = st.sidebar.file_uploader("Upload your input CSV file", type=["csv"])
+    uploaded_file = st.sidebar.file_uploader("Upload your input CSV or XLSX file", type=["csv","xlsx"])
+
+    file_path = "/workspaces/Agriculture_Clustering_ML_App/merged_output.csv"
+
+    st.sidebar.markdown("##### Unduh Contoh Format CSV di bawah ini!")
+    
+    with open(file_path, "rb") as file:
+        st.sidebar.download_button(
+            label="Download Format File",
+            data=file,
+            file_name='format_pestisida.csv',
+            mime='text/csv'
+        )
 
     if uploaded_file is not None:
-        df = pd.read_csv(uploaded_file)
-        st.markdown('**Dataset Pesticide Use in Agriculture**')
-        st.write(df)
+        # Identifikasi tipe file yang diunggah
+        file_type = uploaded_file.name.split('.')[-1].lower()
+
+        try:
+            if file_type == 'csv':
+                df = pd.read_csv(uploaded_file)
+            elif file_type == 'xlsx':
+                df = pd.read_excel(uploaded_file)
+            else:
+                st.error("Format file tidak didukung.")
+                df = None
+
+            if df is not None:
+                st.markdown('**Dataset Pesticide Use in Agriculture**')
+                st.write(df)
+
+        except Exception as e:
+            st.error(f"Gagal membaca file: {e}")
     else:
         st.info('Menunggu file CSV untuk di upload.')
         st.table(data_format)
